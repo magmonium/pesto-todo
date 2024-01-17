@@ -69,10 +69,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "pesto-todo:build:production"
+              "buildTarget": "pesto-todo:build:production"
             },
             "development": {
-              "browserTarget": "pesto-todo:build:development"
+              "buildTarget": "pesto-todo:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -80,7 +80,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "pesto-todo:build"
+            "buildTarget": "pesto-todo:build"
           }
         },
         "test": {
