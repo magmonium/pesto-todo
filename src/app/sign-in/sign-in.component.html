@@ -2,62 +2,59 @@
     <div class="sign-in">
         <div class="row justify-content-center">
 
-            @if (!isSignUp){
-                <h1>Sign In</h1>
-            } @else {
-                <h1>Sign Up</h1>
+            <div class="text-center">
+                @if (act === 'sign-in'){
+                    <h3>Sign In</h3>
+                } @else {
+                    <h3>Sign Up</h3>
+                }
+            </div>
+
+            @if (error) {
+                <ngb-alert type="danger" (closed)="close()">{{ error }}</ngb-alert>
             }
 
-            @if (!isSignUp){
-                <form class="col-md-12 col-lg-10" [formGroup]="loginForm" (ngSubmit)="signIn()">
+            <form class="col-md-12 col-lg-10" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-                    <div class="form-group mb-3">
-                        <label for="email">Email address</label>
-                        <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Type...">
+                <div class="form-group mb-3">
+                    <label for="email">Email address</label>
+                    <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Type...">
+                    
+                    <div class="form-text text-danger" id="basic-addon4">
+                        @if (loginForm.get('email')?.errors?.['required']){
+                            This field is required
+                        } @else if (loginForm.get('email')?.errors?.['pattern']) {
+                            Not a valid email.
+                        }
                     </div>
-    
-                    <div class="form-group mb-3">
-                        <label for="password">Password</label>
-                        <input formControlName="password" type="password" class="form-control" id="password" placeholder="Type...">
+                    
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="password">Password</label>
+                    <input formControlName="password" type="password" class="form-control" id="password" placeholder="Type...">
+                    <div class="form-text text-danger" id="basic-addon4">
+                        @if (loginForm.get('password')?.errors?.['required']){
+                            This field is required.
+                        } @else if (loginForm.get('password')?.errors?.['minlength']) {
+                            Should have minimum length of 6 characters.
+                        }
                     </div>
-    
-                    <button type="submit" class="btn btn-primary">Sign In</button>
-    
-                </form>
-            } @else {
-                <form class="col-md-12 col-lg-10" [formGroup]="signupForm" (ngSubmit)="signUp()">
+                    
+                </div>
 
-                    <div class="form-group mb-3">
-                        <label for="firstname">First Name</label>
-                        <input formControlName="firstName" type="email" class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="Type...">
+                @if(act === 'sign-in'){
+                    <button type="submit" [disabled]="!isValid" class="btn btn-primary btn-block mb-4">Sign In</button>
+                    <div class="text-center">
+                        <p>Not a member? <a [routerLink]="['/auth/sign-up']">Register</a></p>
                     </div>
-
-                    <div class="form-group mb-3">
-                        <label for="lastname">Last Name</label>
-                        <input formControlName="lastName" type="email" class="form-control" id="lastName" aria-describedby="emailHelp" placeholder="Type...">
+                } @else {
+                    <button type="submit" [disabled]="!isValid" class="btn btn-success btn-block mb-4">Sign up</button>
+                    <div class="text-center">
+                        <p>Back to <a [routerLink]="['/auth/sign-in']">Sign In</a></p>
                     </div>
-
-                    <div class="form-group mb-3">
-                        <label for="email">Email Address</label>
-                        <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Type...">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="password">Password</label>
-                        <input formControlName="password" type="password" class="form-control" id="password" placeholder="Type...">
-                    </div>
-
-                    <div class="form-group mb-3">
-                        <label for="repassword">Retype Password</label>
-                        <input formControlName="rePassword" type="password" class="form-control" id="repassword" placeholder="Type...">
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Sign up</button>
-
-
-                </form>
-            }
-
+                }
+            </form>
         </div>
     </div>
 </div>

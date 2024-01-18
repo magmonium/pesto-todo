@@ -3,12 +3,16 @@ import { RouterModule, Routes } from '@angular/router'
 import { SignInComponent } from './sign-in/sign-in.component'
 
 const routes: Routes = [
-  { path: '', redirectTo: '/sign-in', pathMatch: 'full' },
-  { path: 'sign-in', component: SignInComponent }
+  { path: 'auth/:action', component: SignInComponent },
+
+  { path: '', redirectTo: 'auth/sign-in', pathMatch: 'full' },
+  { path: '*', redirectTo: 'auth/sign-in', pathMatch: 'full' }
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes,{
+    bindToComponentInputs: true 
+  })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
