@@ -1,0 +1,63 @@
+<div class="container">
+    <div class="sign-in">
+        <div class="row justify-content-center">
+
+            @if (!isSignUp){
+                <h1>Sign In</h1>
+            } @else {
+                <h1>Sign Up</h1>
+            }
+
+            @if (!isSignUp){
+                <form class="col-md-12 col-lg-10" [formGroup]="loginForm" (ngSubmit)="signIn()">
+
+                    <div class="form-group mb-3">
+                        <label for="email">Email address</label>
+                        <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Type...">
+                    </div>
+    
+                    <div class="form-group mb-3">
+                        <label for="password">Password</label>
+                        <input formControlName="password" type="password" class="form-control" id="password" placeholder="Type...">
+                    </div>
+    
+                    <button type="submit" class="btn btn-primary">Sign In</button>
+    
+                </form>
+            } @else {
+                <form class="col-md-12 col-lg-10" [formGroup]="signupForm" (ngSubmit)="signUp()">
+
+                    <div class="form-group mb-3">
+                        <label for="firstname">First Name</label>
+                        <input formControlName="firstName" type="email" class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="Type...">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="lastname">Last Name</label>
+                        <input formControlName="lastName" type="email" class="form-control" id="lastName" aria-describedby="emailHelp" placeholder="Type...">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="email">Email Address</label>
+                        <input formControlName="email" type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Type...">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="password">Password</label>
+                        <input formControlName="password" type="password" class="form-control" id="password" placeholder="Type...">
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <label for="repassword">Retype Password</label>
+                        <input formControlName="rePassword" type="password" class="form-control" id="repassword" placeholder="Type...">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Sign up</button>
+
+
+                </form>
+            }
+
+        </div>
+    </div>
+</div>
