@@ -1,7 +1,7 @@
 import { Component, Input, inject } from '@angular/core'
 import { FormControl, ReactiveFormsModule, FormGroup, Validators, FormControlState, FormControlStatus } from '@angular/forms'
-import { Auth , signInWithEmailAndPassword, createUserWithEmailAndPassword} from '@angular/fire/auth'
-import { RouterLink } from '@angular/router'
+import { Auth , signInWithEmailAndPassword, createUserWithEmailAndPassword, UserCredential} from '@angular/fire/auth'
+import { Router, RouterLink, RouterModule } from '@angular/router'
 import { NgbAlert } from '@ng-bootstrap/ng-bootstrap'
 
 @Component({
@@ -10,7 +10,8 @@ import { NgbAlert } from '@ng-bootstrap/ng-bootstrap'
   imports: [
     NgbAlert,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
+    RouterModule
   ],
   templateUrl: './sign-in.component.html',
   styleUrl: './sign-in.component.sass'
@@ -20,6 +21,7 @@ export class SignInComponent {
   @Input()
   set action(data:string){
     this.act = data
+    this.error = undefined
   }
 
   loginForm = new FormGroup({
@@ -35,9 +37,10 @@ export class SignInComponent {
   act !: string
   isValid !: boolean
   error !: string | undefined
-  #auth: Auth = inject(Auth);
+  #auth: Auth = inject(Auth)
 
   constructor(
+    private readonly router: Router
   ){
     this.loginForm.statusChanges.subscribe((status:FormControlStatus) => {
       this.isValid = status === 'VALID'
@@ -51,22 +54,22 @@ export class SignInComponent {
     switch(this.act){
 
       case 'sign-up':
-        createUserWithEmailAndPassword(this.#auth,email,password).then((userCredential) => {
-          console.log({userCredential})
-        }).catch(({message}) => {
-          this.error = message
-        })
+        createUserWithEmailAndPassword(this.#auth,email,password).then(this.#onAuthSuccess).catch(this.#onAuthError)
         break
 
       case 'sign-in':
-        signInWithEmailAndPassword(this.#auth,email,password)
-        .then((userCredential) => {
-          console.log({userCredential})
-        }).catch(({message}) => {
-          this.error = message
-        })
+        signInWithEmailAndPassword(this.#auth,email,password).then(this.#onAuthSuccess).catch(this.#onAuthError)
         break
     }
+  }
+
+  #onAuthSuccess = ({user}:UserCredential) => {
+    sessionStorage.setItem('user', user.uid)
+    this.router.navigate(['/'])
+  }
+
+  #onAuthError = ({message}:any) => {
+    this.error = message
   }
 
   close = () => {
