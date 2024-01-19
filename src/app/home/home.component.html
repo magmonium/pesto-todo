@@ -1,1 +1,19 @@
-<p>home works!</p>
+<div class="container pt-3">
+    <div class="box d-flex flex-row justify-content-center align-self-stretch flex-wrap m-4">
+        
+        @if (newTask.id === editMode) {
+            <app-big-task [task]="newTask" (onEdit)="editTask($event)"></app-big-task>
+        } @else {
+            <app-task [task]="newTask" (onEdit)="editTask($event)"></app-task>
+        }
+        
+        @for (task of tasks$|async; track task.id; let idx = $index){
+            @if (task.id === editMode) {
+                <app-big-task [task]="task" (onEdit)="editTask($event)"></app-big-task>
+            } @else {
+                <app-task [task]="task" (onEdit)="editTask($event)"></app-task>
+            }
+        }
+    </div>
+
+</div>

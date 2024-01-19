@@ -7,6 +7,7 @@ import { provideFirebaseApp, initializeApp } from '@angular/fire/app'
 import { getFirestore, provideFirestore } from '@angular/fire/firestore'
 import { environment } from 'src/environments/environment'
 import { AuthModule, getAuth, provideAuth } from '@angular/fire/auth'
+import {TimeAgoPipe} from 'time-ago-pipe'
 
 @NgModule({
   declarations: [

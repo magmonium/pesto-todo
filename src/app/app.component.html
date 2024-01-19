@@ -1,5 +1,8 @@
 <nav class="navbar navbar-light bg-light px-4 fixed-top">
   <div class="title title-font">Tasks</div>
+  @if (hasLoggedIn) {
+    <button (click)="logOut()" class="btn btn-secondary" type="button">Log Out</button>
+  }
 </nav>
 
 <div class="router">

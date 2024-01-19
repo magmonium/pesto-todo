@@ -1,0 +1,33 @@
+<div class="card align-self-stretch mr-auto" >
+    @if (!isNew){
+        <div class="card-header" [ngClass]="{
+            'bg-info': details.status === taskStatus.TO_DO,
+            'bg-primary': details.status === taskStatus.IN_PROGRESS,
+            'bg-secondary': details.status === taskStatus.DONE
+        }">{{getStatus()}}</div>
+    } @else {
+        <div class="card-header bg-success">New Task</div>
+    }
+    <div class="card-body">
+        @if (!isNew){
+            <h5 class="card-title">{{details.name}}</h5>
+            <p class="small italic-light text-info">{{date | timeAgo}}</p>
+            <p class="card-text text-muted">{{details.description}}</p>
+        } @else {
+            <h2>click below to create a new task</h2>
+        }
+    </div>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <div class="d-flex gap-2">
+                    @if(!isNew) {
+                        <button (click)="deleteTask()" class="btn btn-outline-danger" type="button">Delete</button>
+                        <button (click)="editTask()" class="btn btn-sm btn-outline-warning" type="button">Edit</button>
+                    } @else {
+                        <button (click)="editTask()" class="btn btn-success" type="button">Create Task</button>
+                    }
+                </div>
+            </li>
+        </ul>
+</div>
