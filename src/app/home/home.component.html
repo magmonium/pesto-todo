@@ -1,4 +1,14 @@
-<div class="container pt-3">
+<div class="container pt-3"> 
+    <div class="d-flex justify-content-end">
+        <form [formGroup]="filterForm">
+            @for (status of taskStatus; track status.key) {
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" formControlName="{{status.key}}">
+                    <label class="form-check-label">{{status.name}}</label>
+                </div>
+            }
+        </form>
+    </div>
     <div class="box d-flex flex-row justify-content-center align-self-stretch flex-wrap m-4">
         
         @if (newTask.id === editMode) {

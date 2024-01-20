@@ -54,7 +54,7 @@ export class BigTaskComponent {
 
     if(!this.isEdit){
       addDoc(this.#taskCollection, { name, description, status, date })
-      this.taskForm.setValue({name:'', description:'', status:''})
+      this.taskForm.setValue({name:'', description:'', status:TaskStatus.TO_DO})
     }else{
       updateDoc(doc(this.#firestore, `users/${sessionStorage.getItem('user')}/tasks/${this.details.id}`),{ 
         name, 

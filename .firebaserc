@@ -1,13 +1,4 @@
 {
-  "targets": {
-    "pestotodo": {
-      "hosting": {
-        "pesto-todo": [
-          "pestotodo"
-        ]
-      }
-    }
-  },
   "projects": {
     "default": "pestotodo"
   }
