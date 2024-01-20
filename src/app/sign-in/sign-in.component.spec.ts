@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { SignInComponent } from './sign-in.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { SignInComponent } from './sign-in.component'
+import { AppModule } from '../app.module'
 
 describe('SignInComponent', () => {
   let component: SignInComponent;
@@ -8,7 +8,10 @@ describe('SignInComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SignInComponent]
+      imports: [
+        SignInComponent,
+        AppModule
+      ]
     })
     .compileComponents();
     

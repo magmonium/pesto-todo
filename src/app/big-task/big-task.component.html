@@ -5,47 +5,51 @@
     } @else {
         <div class="card-header bg-success">Create Task</div>
     }
-    
-    <form class="task  p-4" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
-    
-        <div class="form-group mb-3">
-            <label for="title">Title</label>
-            <input formControlName="name" class="form-control" id="title"  placeholder="Type...">
-            <div class="form-text text-danger" id="basic-addon4">
-                @if (taskForm.get('name')?.errors?.['required']){
-                    This field is required
-                }
-            </div>
-        </div>
 
-        <div class="form-group mb-3">
-            <label for="des">Description</label>
-            <textarea formControlName="description" class="form-control" id="des"  placeholder="Type..."></textarea>
-            <div class="form-text text-danger" id="basic-addon4">
-                @if (taskForm.get('description')?.errors?.['required']){
-                    This field is required
-                }
+    @if (taskForm){
+        
+        <form class="task  p-4" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+        
+            <div class="form-group mb-3">
+                <label for="title">Title</label>
+                <input formControlName="name" class="form-control" id="title"  placeholder="Type...">
+                <div class="form-text text-danger" id="basic-addon4">
+                    @if (taskForm.get('name')?.errors?.['required']){
+                        This field is required
+                    }
+                </div>
             </div>
-        </div>
 
-        <div class="form-group mb-3">
-            <label for="email">Task Status</label>
-            <select formControlName="status" class="form-select" placeholder="Select...">
-                @for (status of taskStatus; track status.key) {
-                    <option [ngValue]="status.key">{{status.name}}</option>
-                }
-            </select>
-            <div class="form-text text-danger" id="basic-addon4">
-                @if (taskForm.get('status')?.errors?.['required']){
-                    This field is required
-                }
+            <div class="form-group mb-3">
+                <label for="des">Description</label>
+                <textarea formControlName="description" class="form-control" id="des"  placeholder="Type..."></textarea>
+                <div class="form-text text-danger" id="basic-addon4">
+                    @if (taskForm.get('description')?.errors?.['required']){
+                        This field is required
+                    }
+                </div>
             </div>
-        </div>
 
-        @if (isEdit) {
-            <button type="submit" [disabled]="!isValid" class="btn btn-warning btn-block mb-4">Save</button>        
-        } @else {
-            <button type="submit" [disabled]="!isValid" class="btn btn-success btn-block mb-4">Create</button>        
-        }
-    </form>
+            <div class="form-group mb-3">
+                <label for="email">Task Status</label>
+                <select formControlName="status" class="form-select" placeholder="Select...">
+                    @for (status of taskStatus; track status.key) {
+                        <option [ngValue]="status.key">{{status.name}}</option>
+                    }
+                </select>
+                <div class="form-text text-danger" id="basic-addon4">
+                    @if (taskForm.get('status')?.errors?.['required']){
+                        This field is required
+                    }
+                </div>
+            </div>
+
+            @if (isEdit) {
+                <button type="submit" [disabled]="!isValid" class="btn btn-warning btn-block mb-4">Save</button>        
+            } @else {
+                <button type="submit" [disabled]="!isValid" class="btn btn-success btn-block mb-4">Create</button>        
+            }
+        </form>
+        
+    }
 </div>
